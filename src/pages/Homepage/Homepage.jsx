@@ -11,7 +11,7 @@ const Homepage = () => {
             {[1,1,1,1,1,1,1,1].map((item) => <StoryCircle />)}
           </div>
 
-            <div className=' space-y-25 w-full mt-10'>
+            <div className='flex-col items-center space-y-25 w-[65%] ml-20 mt-5'>
               {[1,1].map((item) => <PostsCard />)}
             </div>
 
