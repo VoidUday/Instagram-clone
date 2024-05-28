@@ -1,19 +1,30 @@
 import React, { useState } from 'react'
-import { BsThreeDots } from 'react-icons/bs'
+import { BsThreeDots, BsEmojiSmile } from 'react-icons/bs'
 import '../Posts/PostsCard.css'
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart} from 'react-icons/ai';
-import { FaRegComment } from 'react-icons/fa';
+import { FaRegComment,FaBookmark } from 'react-icons/fa';
 import { BiBookmark } from 'react-icons/bi';
+import { PiShareFat } from 'react-icons/pi';
+import CommentsModel from '../Comments/CommentsModel';
 
 const PostsCard = () => {
-    
+    const [postComment, setPostComment] = useState(false);
     const [showDropDown, setDropDown] = useState(false);
     const [isPostLike, setIsPostLike] = useState(false);
+    const [isBookmarks, setBookmarks] = useState(false);
+
+    const handleBookmarks = ()=> {
+      setBookmarks(!isBookmarks);
+    }
+    const postCommentClick = ()=> {
+      setPostComment(!postComment);
+    }
     const handleClick = ()=>{
        setDropDown(!showDropDown);
     }
     const postLikeClick = () => {
+       console.log("Like button is click");
        setIsPostLike(!isPostLike);
     }
   return (
@@ -44,18 +55,29 @@ const PostsCard = () => {
 
            <div className='flex items-center justify-between mt-4'>
             <div className='flex space-x-3'>
-              <AiFillHeart className='text-3xl' onClick={postLikeClick} />
-              { postLikeClick && <AiOutlineHeart className='text-3xl'/>}
-              <FaRegComment className='text-2xl mt-1' />
-             
+              { isPostLike ? <AiFillHeart className='hover:opacity-50 fill-red-600 cursor-pointer text-3xl' onClick={postLikeClick} /> 
+              : <AiOutlineHeart onClick={postLikeClick} className='text-3xl hover:opacity-50'/> }
+              <FaRegComment onClick={postCommentClick} className='text-2xl mt-1 hover:opacity-50 cursor-pointer' />
+              <PiShareFat className='hover:opacity-50 cursor-pointer text-3xl'/>
             </div>
-              <BiBookmark className='text-3xl'/>
+              { isBookmarks ? <FaBookmark onClick={handleBookmarks} className='text-xl'/> 
+              : <BiBookmark onClick={handleBookmarks} className='text-2xl'/> }
            </div>
+           {/* like and comment count */}
+           <div className='w-full py-2 px-0'>
+              <p>10 likes</p>
+              <p className='opacity-50 py-1 cursor-pointer'>View all 10 comments</p>
+           </div>
+           
+           <div className='flex w-full items-center border-b-2 py-0'>
+            <input className='commentInput' type="text" placeholder='Add a comment'/>
+            <BsEmojiSmile className='comment-emoji'/> 
+            </div>
         </div>
       </div>
-      
+      <CommentsModel />
     </div>
-  )
+  );
 }
 
 export default PostsCard

@@ -12,7 +12,7 @@ const Homepage = () => {
           </div>
 
             <div className='flex-col items-center space-y-25 w-[65%] ml-20 mt-5'>
-              {[1,1].map((item) => <PostsCard />)}
+              {[1,1,1].map((item) => <PostsCard />)}
             </div>
 
         </div>
